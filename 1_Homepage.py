@@ -1,4 +1,6 @@
 import streamlit as st
+from PIL import Image
+import io
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
@@ -11,6 +13,7 @@ warnings.filterwarnings("ignore")
 # Set page configuration for a wide layout
 st.set_page_config(page_title='Laptop Prices Data Exploration', layout='wide')
 
+# Load the image
 image_path = r"C:\Users\ASUS\OneDrive - Cebu Institute of Technology University\Desktop\1.jpg"
 image = Image.open(image_path)
 
@@ -21,20 +24,23 @@ st.image(image, caption='Uploaded Image', use_column_width=True)
 img_byte_arr = io.BytesIO()
 image.save(img_byte_arr, format='JPEG')
 img_byte_arr = img_byte_arr.getvalue()
-img_base64 = f""C:\Users\ASUS\OneDrive - Cebu Institute of Technology University\Desktop\1.jpg",{img_byte_arr.hex()}"
+
+# Corrected img_base64 assignment
+img_base64 = f'"{image_path}",{img_byte_arr.hex()}'
 
 # Set the CSS for the background
 st.markdown(
-    """
+    f"""
     <style>
     .reportview-container {{
-        background: url(""C:\Users\ASUS\OneDrive - Cebu Institute of Technology University\Desktop\1.jpg",{1}");
+        background: url("{image_path}");
         background-size: cover;
         background-repeat: no-repeat;
         height: 100vh;
     }}
     </style>
-    """, unsafe_allow_html=True)
+    """, unsafe_allow_html=True
+)
 
 # Load the dataset
 @st.cache_data
