@@ -240,26 +240,29 @@ with main_col:
 
         st.write("The analysis reveals significant insights into the laptop pricing landscape. Key factors like brand, type, and specifications (especially RAM and storage) strongly influence pricing. Consumers can make informed decisions by understanding these patterns, and manufacturers can refine their strategies to cater to market demands.")
 
+    
     # Comparison Tab
-    elif st.session_state.selected_tab == "Comparison":
-        st.subheader('Laptop Comparison')
+elif st.session_state.selected_tab == "Comparison":
+    st.subheader('Laptop Comparison')
 
-        st.markdown("### Search for Laptops")
+    st.markdown("### Search for Laptops")
+    
+    # Search functionality
+    search_term = st.text_input("Enter Laptop Name to Search", "").strip().lower()
+    
+    if search_term:
+        filtered_df = df[df['Laptop_Name'].str.lower().str.contains(search_term)]
+    else:
+        filtered_df = df  # Display all laptops if no search term is provided
         
-        # Search functionality
-        search_term = st.text_input("Enter Laptop Name to Search", "").strip().lower()
-        
-        if search_term:
-            filtered_df = df[df['Laptop_Name'].str.lower().str.contains(search_term)]
-        else:
-            filtered_df = df  # Display all laptops if no search term is provided
-        
-        # Display filtered results
-        if not filtered_df.empty:
-            selected_laptops = st.multiselect("Select Laptops to Compare", filtered_df['Laptop_Name'].unique())
-            if selected_laptops:
-                comparison_df = filtered_df[filtered_df['Laptop_Name'].isin(selected_laptops)]
-                st.write("### Comparison Results:")
-                st.dataframe(comparison_df[['Laptop_Name', 'Price_euros', 'Ram', 'Processor', 'GPU_model']])  # Add more specs as needed
-        else:
-            st.write("No laptops found with that name. Please try a different search term.")
+    # Display filtered results
+    st.write(filtered_df.columns)  # Check the columns
+
+    if filtered_df.empty:
+        st.write("No laptops found with that name. Please try a different search term.")
+    else:
+        selected_laptops = st.multiselect("Select Laptops to Compare", filtered_df['Laptop_Name'].unique())
+        if selected_laptops:
+            comparison_df = filtered_df[filtered_df['Laptop_Name'].isin(selected_laptops)]
+            st.write("### Comparison Results:")
+            st.dataframe(comparison_df[['Laptop_Name', 'Price_euros', 'Ram', 'Processor', 'GPU_model']])  # Add more specs as needed
