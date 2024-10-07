@@ -13,12 +13,12 @@ warnings.filterwarnings("ignore")
 # Set page configuration for a wide layout
 st.set_page_config(page_title='Laptop Prices Data Exploration', layout='wide')
 
-# Load the image
-image_path = r"C:\Users\ASUS\OneDrive - Cebu Institute of Technology University\Desktop\1.jpg"
-image = Image.open(image_path)
+# Replace with your actual raw GitHub URL
+image_url = "https://github.com/KurtXanderCabural/LaptopPrice/blob/main/1.jpg"
 
 # Display the image in Streamlit
-st.image(image, caption='Uploaded Image', use_column_width=True)
+st.image(image_url, caption='Image from GitHub', use_column_width=True)
+
 
 # Convert the image to bytes and then to a base64 string
 img_byte_arr = io.BytesIO()
