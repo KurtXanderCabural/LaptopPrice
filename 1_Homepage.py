@@ -11,7 +11,22 @@ warnings.filterwarnings("ignore")
 # Set page configuration for a wide layout
 st.set_page_config(page_title='Laptop Prices Data Exploration', layout='wide')
 
+background_image_url = "https://pngtree.com/freebackground/laptop-on-screen-flat-designs_15462098.html"
 
+# Add CSS to style the background
+st.markdown(
+    f"""
+    <style>
+    .reportview-container {{
+        background: url({https://pngtree.com/freebackground/laptop-on-screen-flat-designs_15462098.html});
+        background-size: cover;
+        background-position: center;
+        height: 100vh;  /* Set height to cover the entire viewport */
+    }}
+    </style>
+    """,
+    unsafe_allow_html=True
+)
 
 # Load the dataset
 @st.cache_data
