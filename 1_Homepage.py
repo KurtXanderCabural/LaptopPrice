@@ -11,18 +11,34 @@ warnings.filterwarnings("ignore")
 # Set page configuration for a wide layout
 st.set_page_config(page_title='Laptop Prices Data Exploration', layout='wide')
 
-# Add background image using CSS
-st.markdown(
-    """
-    <style>
-    .reportview-container {
-        background: url('https://pngtree.com/freebackground/laptop-on-screen-flat-designs_15462098.html');
-        background-size: cover;
-    }
-    </style>
-    """,
-    unsafe_allow_html=True
-)
+# Create a file uploader for the JPEG image
+uploaded_file = st.file_uploader(""C:\Users\ASUS\OneDrive - Cebu Institute of Technology University\Desktop\1.jpg"", type=["jpeg", "jpg"])
+
+# Check if a file has been uploaded
+if uploaded_file is not None:
+    # Read the uploaded image
+    image = Image.open(uploaded_file)
+    
+    # Convert the image to bytes and then to a base64 string
+    img_byte_arr = io.BytesIO()
+    image.save(img_byte_arr, format='JPEG')
+    img_byte_arr = img_byte_arr.getvalue()
+    img_base64 = f""C:\Users\ASUS\OneDrive - Cebu Institute of Technology University\Desktop\1.jpg",{img_byte_arr.hex()}"
+    
+    # Set the CSS for the background
+    st.markdown(
+        f"""
+        <style>
+        .reportview-container {{
+            background: url(""C:\Users\ASUS\OneDrive - Cebu Institute of Technology University\Desktop\1.jpg",{1}");
+            background-size: cover;
+            background-repeat: no-repeat;
+            height: 100vh;
+        }}
+        </style>
+        """,
+        unsafe_allow_html=True
+    )
 
 # Load the dataset
 @st.cache_data
