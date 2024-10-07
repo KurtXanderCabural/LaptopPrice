@@ -35,14 +35,18 @@ st.markdown(
         background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent black overlay */
         z-index: 1; /* Make sure overlay is above the background */
     }}
-    
+    .content {{
+        position: relative; /* Position content relative to overlay */
+        z-index: 2; /* Make sure content is above the overlay */
+        color: white; /* Set text color to white for better visibility */
+        padding: 20px; /* Add some padding for better appearance */
+    }}
     </style>
     <div class="overlay"></div> <!-- Overlay div -->
     <div class="content"> <!-- Content div -->
     """,
     unsafe_allow_html=True
 )
-
 
 # Load the dataset
 @st.cache_data
