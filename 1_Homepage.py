@@ -39,7 +39,7 @@ st.markdown(
         position: relative; /* Position content relative to overlay */
         z-index: 2; /* Make sure content is above the overlay */
         color: white; /* Set text color to white for better visibility */
-        padding: 100px; /* Add some padding for better appearance */
+        padding: 20px; /* Add some padding for better appearance */
     }}
     </style>
     <div class="overlay"></div> <!-- Overlay div -->
