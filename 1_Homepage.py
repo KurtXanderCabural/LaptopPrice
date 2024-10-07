@@ -94,10 +94,6 @@ with main_col:
         if st.button("Conclusion", key="tab_Conclusion"):
             selected_tab = "Conclusion"
 
-    with tab7:
-        if st.button("Comparison", key="tab_comparison"):
-            selected_tab = "Comparison"
-
     # Default tab
     if 'selected_tab' not in st.session_state:
         st.session_state.selected_tab = "Home"
@@ -393,59 +389,4 @@ with main_col:
             - **CPU Model** (**0.473860**) and **CPU Frequency** (**0.428847**): Both show a moderate correlation with price, indicating that processor specifications are important, but not as crucial as RAM or screen specs in this dataset.
             - **Screen** (**0.403834**): This general screen factor (possibly referring to overall screen size or quality) shows the weakest correlation among the listed factors, but still has a moderate positive influence on price.
             """)
-
-
-         # Comparison Tab
-    elif st.session_state.selected_tab == "Comparison":
-        
-        st.subheader('Laptop Comparison')
-        col1, col2 = st.columns(2)
-
-        # Select two laptops for comparison
-        laptop_list = df['Model'].unique()  # Assuming 'Model' is the column with laptop names
-
-        with col1:
-            laptop1 = st.selectbox('Select Laptop 1', laptop_list)
-        with col2:
-            laptop2 = st.selectbox('Select Laptop 2', laptop_list)
-
-        # Display the specs of selected laptops side-by-side
-        if laptop1 and laptop2:
-            specs1 = df[df['Model'] == laptop1].squeeze()
-            specs2 = df[df['Model'] == laptop2].squeeze()
-
-            # Displaying laptop images (you need a column for images in your CSV for this to work)
-            if 'Image_URL' in df.columns:  # Replace 'Image_URL' with your image column name
-                col1.image(specs1['Image_URL'], use_column_width=True)
-                col2.image(specs2['Image_URL'], use_column_width=True)
-
-            # Displaying specifications
-            with col1:
-                st.write(f"**Model:** {laptop1}")
-                st.write(f"**Price:** €{specs1['Price_euros']}")
-                st.write(f"**CPU:** {specs1['CPU']}")
-                st.write(f"**RAM:** {specs1['Ram']}")
-                st.write(f"**Storage:** {specs1['PrimaryStorageType']}")
-                st.write(f"**Screen Size:** {specs1['Inches']} inches")
-                # Add more specs as needed
-
-            with col2:
-                st.write(f"**Model:** {laptop2}")
-                st.write(f"**Price:** €{specs2['Price_euros']}")
-                st.write(f"**CPU:** {specs2['CPU']}")
-                st.write(f"**RAM:** {specs2['Ram']}")
-                st.write(f"**Storage:** {specs2['PrimaryStorageType']}")
-                st.write(f"**Screen Size:** {specs2['Inches']} inches")
-                # Add more specs as needed
-
-            # Show side-by-side comparison for easy evaluation
-            st.markdown(f"""
-                <style>
-                .stMarkdown {{
-                    display: flex;
-                    flex-direction: row;
-                    justify-content: space-between;
-                    font-size: 16px;
-                }}
-                </style>
-            """, unsafe_allow_html=True)
+            
