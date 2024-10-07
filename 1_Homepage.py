@@ -14,6 +14,7 @@ warnings.filterwarnings("ignore")
 # Set page configuration for a wide layout
 st.set_page_config(page_title='Laptop Prices Data Exploration', layout='wide')
 
+
 # Replace with your actual raw GitHub URL
 image_url = "https://raw.githubusercontent.com/KurtXanderCabural/LaptopPrice/main/1.jpg"
 
@@ -24,44 +25,33 @@ image = Image.open(io.BytesIO(response.content))
 # Display the image in Streamlit
 st.image(image, caption='Image from GitHub', use_column_width=True)
 
-# If you want to convert the image to bytes (optional)
-img_byte_arr = io.BytesIO()
-image.save(img_byte_arr, format='JPEG')
-img_byte_arr = img_byte_arr.getvalue()
-
-# Set the CSS for the background
-st.markdown(
-    f"""
+# Set the CSS for the background for specific tabs
+background_style = """
     <style>
     .reportview-container {{
         background: url("{image_url}");
         background-size: cover;
         background-repeat: no-repeat;
         height: 100vh;
-        position: relative;
+        color: white;  /* Change text color for better visibility */
+        opacity: 0.9; /* Adjust opacity for readability */
     }}
-
-    .overlay {{
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        background-color: rgba(255, 255, 255, 0.7);  /* White with transparency */
-        z-index: 1;
-    }}
-
-    .content {{
-        position: relative;
-        z-index: 2;  /* Place content above the overlay */
-        color: #333;  /* Dark color for better readability */
-        padding: 20px;
+    .tab-content {{
+        background-color: rgba(0, 0, 0, 0.5); /* Dark overlay for better readability */
+        border-radius: 10px; /* Optional: to round corners */
+        padding: 20px; /* Optional: add some padding */
     }}
     </style>
-    <div class="overlay"></div>
-    <div class="content">
-    """, unsafe_allow_html=True
-)
+"""
+
+# Use the CSS for the tabs you want to apply the background
+tabs = st.tabs(["Introduction", "Count Analysis", "Key Statistics", "Feature Analysis", "Multivariate Analysis", "Conclusion"])
+
+for tab in tabs:
+    with tab:
+        st.markdown(background_style.format(image_url=image_url), unsafe_allow_html=True)
+        st.markdown("<div class='tab-content'>", unsafe_allow_html=True)
+        st.write(f"This is the content for the {tab} tab.")
 
 # Load the dataset
 @st.cache_data
