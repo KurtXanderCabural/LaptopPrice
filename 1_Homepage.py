@@ -90,10 +90,6 @@ with main_col:
         if st.button("Comparison", key="tab_comparison"):  # New Comparison tab
             selected_tab = "Comparison"
 
-    # Default tab
-    if 'selected_tab' not in st.session_state:
-        st.session_state.selected_tab = "Home"
-
     # Update the selected tab
     if 'selected_tab' in locals() and selected_tab:
         st.session_state.selected_tab = selected_tab
@@ -186,118 +182,84 @@ with main_col:
             st.write("**Explanation of Key Statistics:**")
             st.write("1. **Minimum Price** shows the cheapest laptop available.")
             st.write("2. **Maximum Price** indicates the highest priced laptop.")
-            st.write("3. **Mean Price** gives an average price across all laptops.")
-            st.write("4. **Median Price** provides the middle point in price distribution.")
-            st.write("5. **Standard Deviation** reflects the price variation among laptops.")
+            st.write("3. **Mean Price** provides the average laptop price.")
+            st.write("4. **Median Price** represents the middle point, indicating a balance.")
+            st.write("5. **Standard Deviation** measures the price dispersion around the mean.")
 
     # Feature Analysis Tab
     elif st.session_state.selected_tab == "Feature Analysis":
-        with st.container():
-            st.subheader('Feature Analysis')
-            feature_analysis_col1, feature_analysis_col2 = st.columns(2)
+        st.subheader('Feature Analysis')
 
-            with feature_analysis_col1:
-                st.subheader('RAM vs Price')
-                fig = plt.figure(figsize=(6, 4))  # Adjusted figure size
-                sns.boxplot(data=df, x='Ram', y='Price_euros', palette='viridis')
-                plt.xlabel('RAM (GB)', fontsize=font_size)
-                plt.ylabel('Price (euros)', fontsize=font_size)
-                st.pyplot(fig)
+        col1, col2 = st.columns(2)
 
-            with feature_analysis_col2:
-                st.subheader('Screen Size vs Price')
-                fig = plt.figure(figsize=(6, 4))  # Adjusted figure size
-                sns.boxplot(data=df, x='Inches', y='Price_euros', palette='viridis')
-                plt.xlabel('Screen Size (Inches)', fontsize=font_size)
-                plt.ylabel('Price (euros)', fontsize=font_size)
-                st.pyplot(fig)
+        with col1:
+            st.markdown('### Boxplot of Laptop Prices by Company')
+            fig1, ax1 = plt.subplots(figsize=(6, 3))  # Smaller graph size
+            sns.boxplot(data=df, x='Company', y='Price_euros', ax=ax1)
+            ax1.set_title('Laptop Prices by Company', fontsize=title_size)
+            ax1.set_xlabel('Company', fontsize=font_size)
+            ax1.set_ylabel('Price (euros)', fontsize=font_size)
+            plt.xticks(rotation=45)
+            st.pyplot(fig1)
 
-            with st.expander("Analysis of Features", expanded=True):
-                st.write("""The box plots show how **RAM** and **screen size** affect laptop prices. 
-                Higher RAM configurations tend to correlate with higher prices, indicating that consumers are willing to pay more for enhanced performance. 
-                The screen size box plot highlights varying prices across different dimensions, revealing trends such as larger screens generally commanding higher prices due to better user experience. 
-                These findings suggest that both RAM and screen size are significant factors influencing laptop pricing.""")
+        with col2:
+            st.markdown('### Boxplot of Laptop Prices by Type')
+            fig2, ax2 = plt.subplots(figsize=(6, 3))  # Smaller graph size
+            sns.boxplot(data=df, x='TypeName', y='Price_euros', ax=ax2)
+            ax2.set_title('Laptop Prices by Type', fontsize=title_size)
+            ax2.set_xlabel('Type', fontsize=font_size)
+            ax2.set_ylabel('Price (euros)', fontsize=font_size)
+            plt.xticks(rotation=45)
+            st.pyplot(fig2)
 
-    # Multivariate Analysis Tab
+        with st.expander("Insights", expanded=True):
+            st.markdown("### Insights from Feature Analysis")
+            st.write("1. **Price Variation by Company:** Different companies have varying price points. Some brands offer budget options while others focus on premium devices.")
+            st.write("2. **Type-Specific Pricing:** The type of laptop significantly impacts the price. Gaming laptops tend to be on the higher end, while basic models are more affordable.")
+
+    # Multivarient Analysis Tab
     elif st.session_state.selected_tab == "Multivarient Analysis":
-        with st.container():
-            st.subheader('Multivariate Analysis')
+        st.subheader('Multivarient Analysis')
 
-            col1, col2 = st.columns(2)
-            with col1:
-                st.subheader('Price vs RAM and Storage Type')
-                fig, ax = plt.subplots(figsize=(6, 4))  # Adjusted figure size
-                sns.scatterplot(data=df, x='Ram', y='Price_euros', hue='PrimaryStorageType', style='Company', ax=ax, palette='viridis')
-                ax.set_title('Price vs RAM with Storage Type', fontsize=title_size)
-                ax.set_xlabel('RAM (GB)', fontsize=font_size)
-                ax.set_ylabel('Price (euros)', fontsize=font_size)
-                plt.legend(loc='upper left', bbox_to_anchor=(1, 1))
-                st.pyplot(fig)
+        # Create a scatter plot to analyze the relationship between RAM and Price
+        fig, ax = plt.subplots(figsize=(6, 3))  # Smaller graph size
+        sns.scatterplot(data=df, x='Ram', y='Price_euros', hue='Company', alpha=0.6, ax=ax)
+        ax.set_title('Price vs RAM', fontsize=title_size)
+        ax.set_xlabel('RAM (GB)', fontsize=font_size)
+        ax.set_ylabel('Price (euros)', fontsize=font_size)
+        st.pyplot(fig)
 
-            with col2:
-                st.subheader('Price vs CPU and GPU')
-                fig, ax = plt.subplots(figsize=(6, 4))  # Adjusted figure size
-                sns.scatterplot(data=df, x='CPU_model', y='Price_euros', hue='GPU_model', ax=ax, palette='viridis')
-                ax.set_title('Price vs CPU and GPU', fontsize=title_size)
-                ax.set_xlabel('CPU Model', fontsize=font_size)
-                ax.set_ylabel('Price (euros)', fontsize=font_size)
-                plt.xticks(rotation=45)
-                st.pyplot(fig)
-
-            with st.expander("Multivariate Analysis Interpretation", expanded=True):
-                st.write("""The scatter plots reveal complex relationships between multiple features. 
-                In the first plot, **RAM** and **storage type** significantly impact **price**, with SSDs often correlating with higher prices across various RAM configurations. 
-                The second plot illustrates how **CPU** and **GPU** combinations play crucial roles in determining **laptop prices**, reflecting market demand for high-performance components.""")
+        with st.expander("Insights", expanded=True):
+            st.write("### Insights from Multivarient Analysis")
+            st.write("1. **Correlation between RAM and Price:** Generally, laptops with higher RAM tend to have higher prices, but there are exceptions.")
+            st.write("2. **Brand Influence:** Different brands might have varying price strategies, which is reflected in the scatter plot.")
 
     # Conclusion Tab
     elif st.session_state.selected_tab == "Conclusion":
-        with st.container():
-            st.subheader('Conclusion')
-            st.write("""Through this data exploration, we discovered significant relationships between laptop specifications and prices. 
-            Key findings include the importance of **RAM**, **screen size**, and **storage type** as major price determinants. 
-            Understanding these factors can aid consumers in making informed purchasing decisions and manufacturers in optimizing product offerings.""")
+        st.subheader('Conclusion')
 
-        # Comparison Tab
-elif st.session_state.selected_tab == "Comparison":
-    with st.container():
+        st.write("The analysis reveals significant insights into the laptop pricing landscape. Key factors like brand, type, and specifications (especially RAM and storage) strongly influence pricing. Consumers can make informed decisions by understanding these patterns, and manufacturers can refine their strategies to cater to market demands.")
+
+    # Comparison Tab
+    elif st.session_state.selected_tab == "Comparison":
         st.subheader('Laptop Comparison')
-        search_query = st.text_input("Enter laptop name to search:", "")
 
-        # Print the column names for debugging
-        st.write("Available columns:", df.columns.tolist())
+        st.markdown("### Search for Laptops")
         
-        # Show the first few rows of the DataFrame for debugging
-        st.write("Sample data:", df.head())
-
-        # Check if the 'Laptop Name' column exists
-        if 'Laptop Name' in df.columns:  
-            # Filter the DataFrame based on the search query
-            filtered_df = df[df['Laptop Name'].str.contains(search_query, case=False)]
-
-            # Display comparison if the user has searched for a laptop
-            if not filtered_df.empty:
-                if len(filtered_df) > 2:
-                    st.warning("Please refine your search to select two laptops for comparison.")
-                else:
-                    for _, row in filtered_df.iterrows():
-                        st.markdown(f"### {row['Laptop Name']}")
-                        st.image(row['Image Link'])  # Assuming 'Image Link' column contains the image URLs
-                        st.write("**Price:**", row['Price_euros'], "euros")
-                        st.write("**RAM:**", row['Ram'], "GB")
-                        st.write("**Screen Size:**", row['Inches'], "inches")
-                        st.write("**Storage Type:**", row['PrimaryStorageType'])
-                        st.write("**CPU Model:**", row['CPU_model'])
-                        st.write("**GPU Model:**", row['GPU_model'])
-                        st.write("---")  # Separator line
-            else:
-                st.write("No laptops found. Please try a different search term.")
+        # Search functionality
+        search_term = st.text_input("Enter Laptop Name to Search", "").strip().lower()
+        
+        if search_term:
+            filtered_df = df[df['Laptop_Name'].str.lower().str.contains(search_term)]
         else:
-            st.error("Column 'Laptop Name' does not exist in the dataset.")
-
-
-
-
-
-# Add a footer
-st.markdown("<hr>", unsafe_allow_html=True)
-st.markdown("<p style='text-align: center;'>Created by Aubrey Ocanada</p>", unsafe_allow_html=True)
+            filtered_df = df  # Display all laptops if no search term is provided
+        
+        # Display filtered results
+        if not filtered_df.empty:
+            selected_laptops = st.multiselect("Select Laptops to Compare", filtered_df['Laptop_Name'].unique())
+            if selected_laptops:
+                comparison_df = filtered_df[filtered_df['Laptop_Name'].isin(selected_laptops)]
+                st.write("### Comparison Results:")
+                st.dataframe(comparison_df[['Laptop_Name', 'Price_euros', 'Ram', 'Processor', 'GPU_model']])  # Add more specs as needed
+        else:
+            st.write("No laptops found with that name. Please try a different search term.")
