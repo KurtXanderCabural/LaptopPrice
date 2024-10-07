@@ -257,20 +257,21 @@ with main_col:
             Key findings include the importance of **RAM**, **screen size**, and **storage type** as major price determinants. 
             Understanding these factors can aid consumers in making informed purchasing decisions and manufacturers in optimizing product offerings.""")
 
-    # Comparison Tab
-    elif st.session_state.selected_tab == "Comparison":
-        with st.container():
-            st.subheader('Laptop Comparison')
-            search_query = st.text_input("Enter laptop name to search:", "")
+        # Comparison Tab
+elif st.session_state.selected_tab == "Comparison":
+    with st.container():
+        st.subheader('Laptop Comparison')
+        search_query = st.text_input("Enter laptop name to search:", "")
 
         # Print the column names for debugging
-            st.write("Available columns:", df.columns.tolist())
+        st.write("Available columns:", df.columns.tolist())
         
         # Show the first few rows of the DataFrame for debugging
-            st.write("Sample data:", df.head())
+        st.write("Sample data:", df.head())
 
-        # Filter the DataFrame based on the search query
-            if 'Laptop Name' in df.columns:  # Check if the column exists
+        # Check if the 'Laptop Name' column exists
+        if 'Laptop Name' in df.columns:  
+            # Filter the DataFrame based on the search query
             filtered_df = df[df['Laptop Name'].str.contains(search_query, case=False)]
 
             # Display comparison if the user has searched for a laptop
@@ -292,6 +293,9 @@ with main_col:
                 st.write("No laptops found. Please try a different search term.")
         else:
             st.error("Column 'Laptop Name' does not exist in the dataset.")
+
+
+
 
 
 # Add a footer
