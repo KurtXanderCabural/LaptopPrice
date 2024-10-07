@@ -37,7 +37,7 @@ st.markdown(
     }}
     .content {{
         position: relative; /* Position content relative to overlay */
-        z-index: -5; /* Make sure content is above the overlay */
+        z-index: 2; /* Make sure content is above the overlay */
         color: white; /* Set text color to white for better visibility */
         padding: 150px; /* Add some padding for better appearance */
     }}
