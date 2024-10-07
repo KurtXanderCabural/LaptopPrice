@@ -210,9 +210,18 @@ with main_col:
             st.pyplot(fig)
 
         with st.expander("Interpretation", expanded=True):
-            st.markdown("""The analysis of features and their relationship with price reveals key insights. The **box plot for RAM** indicates that laptops with higher RAM tend to have a higher price, suggesting that RAM is a critical factor in determining a laptop's cost. Additionally, it shows that laptops with 16GB RAM and higher significantly surpass the average price, indicating a premium segment in the market. 
+            st.markdown("""
+            The analysis of features and their relationship with price reveals key insights. 
+            The **box plot for RAM** indicates that laptops with higher RAM tend to have a higher price, 
+            suggesting that RAM is a critical factor in determining a laptop's cost. 
+            Additionally, it shows that laptops with 16GB RAM and higher significantly surpass the average price, 
+            indicating a premium segment in the market.
 
-            The **box plot for storage types** indicates a clear price differentiation based on storage technology. Laptops with **SSD** storage are generally more expensive than their **HDD** counterparts. This analysis emphasizes the importance of RAM and storage type as significant contributors to laptop pricing."""
+            The **box plot for storage types** indicates a clear price differentiation based on storage technology. 
+            Laptops with **SSD** storage are generally more expensive than their **HDD** counterparts. 
+            This analysis emphasizes the importance of RAM and storage type as significant contributors to laptop pricing.
+            """)
+
 
     # Multivariate Analysis Tab
     elif st.session_state.selected_tab == "Multivariate Analysis":
