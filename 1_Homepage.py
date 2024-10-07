@@ -242,27 +242,27 @@ with main_col:
 
     
     # Comparison Tab
-elif st.session_state.selected_tab == "Comparison":
-    st.subheader('Laptop Comparison')
+    elif st.session_state.selected_tab == "Comparison":
+        st.subheader('Laptop Comparison')
 
-    st.markdown("### Search for Laptops")
+        st.markdown("### Search for Laptops")
     
     # Search functionality
-    search_term = st.text_input("Enter Laptop Name to Search", "").strip().lower()
+        search_term = st.text_input("Enter Laptop Name to Search", "").strip().lower()
     
-    if search_term:
-        filtered_df = df[df['Laptop_Name'].str.lower().str.contains(search_term)]
-    else:
-        filtered_df = df  # Display all laptops if no search term is provided
+        if search_term:
+            filtered_df = df[df['Laptop_Name'].str.lower().str.contains(search_term)]
+        else:
+            filtered_df = df  # Display all laptops if no search term is provided
         
     # Display filtered results
-    st.write(filtered_df.columns)  # Check the columns
+        st.write(filtered_df.columns)  # Check the columns
 
-    if filtered_df.empty:
-        st.write("No laptops found with that name. Please try a different search term.")
-    else:
-        selected_laptops = st.multiselect("Select Laptops to Compare", filtered_df['Laptop_Name'].unique())
-        if selected_laptops:
-            comparison_df = filtered_df[filtered_df['Laptop_Name'].isin(selected_laptops)]
-            st.write("### Comparison Results:")
-            st.dataframe(comparison_df[['Laptop_Name', 'Price_euros', 'Ram', 'Processor', 'GPU_model']])  # Add more specs as needed
+        if filtered_df.empty:
+            st.write("No laptops found with that name. Please try a different search term.")
+        else:
+            selected_laptops = st.multiselect("Select Laptops to Compare", filtered_df['Laptop_Name'].unique())
+                if selected_laptops:
+                comparison_df = filtered_df[filtered_df['Laptop_Name'].isin(selected_laptops)]
+                st.write("### Comparison Results:")
+                st.dataframe(comparison_df[['Laptop_Name', 'Price_euros', 'Ram', 'Processor', 'GPU_model']])  # Add more specs as needed
