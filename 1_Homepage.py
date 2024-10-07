@@ -263,7 +263,14 @@ with main_col:
             st.subheader('Laptop Comparison')
             search_query = st.text_input("Enter laptop name to search:", "")
 
-            # Filter the DataFrame based on the search query
+        # Print the column names for debugging
+            st.write("Available columns:", df.columns.tolist())
+        
+        # Show the first few rows of the DataFrame for debugging
+            st.write("Sample data:", df.head())
+
+        # Filter the DataFrame based on the search query
+            if 'Laptop Name' in df.columns:  # Check if the column exists
             filtered_df = df[df['Laptop Name'].str.contains(search_query, case=False)]
 
             # Display comparison if the user has searched for a laptop
@@ -283,6 +290,9 @@ with main_col:
                         st.write("---")  # Separator line
             else:
                 st.write("No laptops found. Please try a different search term.")
+        else:
+            st.error("Column 'Laptop Name' does not exist in the dataset.")
+
 
 # Add a footer
 st.markdown("<hr>", unsafe_allow_html=True)
