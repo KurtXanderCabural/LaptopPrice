@@ -32,14 +32,14 @@ st.markdown(
         left: 0;
         right: 0;
         bottom: 0;
-        background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent black overlay */
+        background-color: rgba(0, 0, 0, 0); /* Semi-transparent black overlay */
         z-index: 1; /* Make sure overlay is above the background */
     }}
     .content {{
         position: relative; /* Position content relative to overlay */
         z-index: 2; /* Make sure content is above the overlay */
         color: white; /* Set text color to white for better visibility */
-        padding: 20px; /* Add some padding for better appearance */
+        padding: 0px; /* Add some padding for better appearance */
     }}
     </style>
     <div class="overlay"></div> <!-- Overlay div -->
