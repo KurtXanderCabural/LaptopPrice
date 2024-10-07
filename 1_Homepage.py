@@ -16,27 +16,25 @@ image = Image.open(image_path)
 
 # Display the image in Streamlit
 st.image(image, caption='Uploaded Image', use_column_width=True)
-    
-    # Convert the image to bytes and then to a base64 string
-    img_byte_arr = io.BytesIO()
-    image.save(img_byte_arr, format='JPEG')
-    img_byte_arr = img_byte_arr.getvalue()
-    img_base64 = f""C:\Users\ASUS\OneDrive - Cebu Institute of Technology University\Desktop\1.jpg",{img_byte_arr.hex()}"
-    
-    # Set the CSS for the background
-    st.markdown(
-        f"""
-        <style>
-        .reportview-container {{
-            background: url(""C:\Users\ASUS\OneDrive - Cebu Institute of Technology University\Desktop\1.jpg",{1}");
-            background-size: cover;
-            background-repeat: no-repeat;
-            height: 100vh;
-        }}
-        </style>
-        """,
-        unsafe_allow_html=True
-    )
+
+# Convert the image to bytes and then to a base64 string
+img_byte_arr = io.BytesIO()
+image.save(img_byte_arr, format='JPEG')
+img_byte_arr = img_byte_arr.getvalue()
+img_base64 = f""C:\Users\ASUS\OneDrive - Cebu Institute of Technology University\Desktop\1.jpg",{img_byte_arr.hex()}"
+
+# Set the CSS for the background
+st.markdown(
+    """
+    <style>
+    .reportview-container {{
+        background: url(""C:\Users\ASUS\OneDrive - Cebu Institute of Technology University\Desktop\1.jpg",{1}");
+        background-size: cover;
+        background-repeat: no-repeat;
+        height: 100vh;
+    }}
+    </style>
+    """, unsafe_allow_html=True)
 
 # Load the dataset
 @st.cache_data
