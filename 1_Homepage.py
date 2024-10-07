@@ -12,7 +12,7 @@ warnings.filterwarnings("ignore")
 st.set_page_config(page_title='Laptop Prices Data Exploration', layout='wide')
 
 # Create a file uploader for the JPEG image
-uploaded_file = st.file_uploader(""C:\Users\ASUS\OneDrive - Cebu Institute of Technology University\Desktop\1.jpg"", type=["jpeg", "jpg"])
+uploaded_file = st.file_uploader("C:\Users\ASUS\OneDrive - Cebu Institute of Technology University\Desktop\1.jpg", type=["jpeg", "jpg"])
 
 # Check if a file has been uploaded
 if uploaded_file is not None:
