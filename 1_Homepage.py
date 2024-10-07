@@ -1,6 +1,7 @@
 import streamlit as st
-from PIL import Image
 import io
+from PIL import Image
+import requests
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
@@ -14,26 +15,29 @@ warnings.filterwarnings("ignore")
 st.set_page_config(page_title='Laptop Prices Data Exploration', layout='wide')
 
 # Replace with your actual raw GitHub URL
-image_url = "https://github.com/KurtXanderCabural/LaptopPrice/blob/main/1.jpg"
+image_url = "https://raw.githubusercontent.com/KurtXanderCabural/LaptopPrice/main/1.jpg"
+
+# Load the image from the URL
+response = requests.get(image_url)
+image = Image.open(io.BytesIO(response.content))
 
 # Display the image in Streamlit
-st.image(image_url, caption='Image from GitHub', use_column_width=True)
+st.image(image, caption='Image from GitHub', use_column_width=True)
 
-
-# Convert the image to bytes and then to a base64 string
+# If you want to convert the image to bytes (optional)
 img_byte_arr = io.BytesIO()
 image.save(img_byte_arr, format='JPEG')
 img_byte_arr = img_byte_arr.getvalue()
 
-# Corrected img_base64 assignment
-img_base64 = f'"{image_path}",{img_byte_arr.hex()}'
+# Use the image_url for base64 if needed
+img_base64 = f'"{image_url}",{img_byte_arr.hex()}'
 
 # Set the CSS for the background
 st.markdown(
     f"""
     <style>
     .reportview-container {{
-        background: url("{image_path}");
+        background: url("{image_url}");
         background-size: cover;
         background-repeat: no-repeat;
         height: 100vh;
