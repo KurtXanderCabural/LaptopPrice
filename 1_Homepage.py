@@ -19,23 +19,12 @@ st.markdown(
     f"""
     <style>
     .stApp {{
-        position: relative; /* Position relative for the overlay */
-        height: 100vh; /* Full height */
-        overflow: hidden; /* Hide overflow */
-    }}
-    .background {{
         background-image: url("{image_url}");
         background-size: cover;
         background-repeat: no-repeat;
         background-attachment: fixed;
         background-position: center;
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        opacity: 0.4; /* Adjust this value for the desired image opacity */
-        z-index: 1; /* Place it below the content */
+        height: 100vh;
     }}
     .overlay {{
         position: absolute;
@@ -44,21 +33,22 @@ st.markdown(
         right: 0;
         bottom: 0;
         background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent black overlay */
-        z-index: 2; /* Make sure overlay is above the background */
+        z-index: 1; /* Make sure overlay is above the background */
     }}
     .content {{
         position: relative; /* Position content relative to overlay */
-        z-index: 3; /* Ensure content is above the overlay */
+        z-index: 2; /* Make sure content is above the overlay */
         color: white; /* Set text color to white for better visibility */
         padding: 20px; /* Add some padding for better appearance */
     }}
     </style>
-    <div class="background"></div> <!-- Background image div -->
     <div class="overlay"></div> <!-- Overlay div -->
     <div class="content"> <!-- Content div -->
     """,
     unsafe_allow_html=True
 )
+
+
 # Load the dataset
 @st.cache_data
 def load_data():
