@@ -1,7 +1,4 @@
 import streamlit as st
-import io
-from PIL import Image
-import requests
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
@@ -15,43 +12,6 @@ warnings.filterwarnings("ignore")
 st.set_page_config(page_title='Laptop Prices Data Exploration', layout='wide')
 
 
-# Replace with your actual raw GitHub URL
-image_url = "https://raw.githubusercontent.com/KurtXanderCabural/LaptopPrice/main/1.jpg"
-
-# Load the image from the URL
-response = requests.get(image_url)
-image = Image.open(io.BytesIO(response.content))
-
-# Display the image in Streamlit
-st.image(image, caption='Image from GitHub', use_column_width=True)
-
-# Set the CSS for the background for specific tabs
-background_style = """
-    <style>
-    .reportview-container {{
-        background: url("{image_url}");
-        background-size: cover;
-        background-repeat: no-repeat;
-        height: 100vh;
-        color: white;  /* Change text color for better visibility */
-        opacity: 0.9; /* Adjust opacity for readability */
-    }}
-    .tab-content {{
-        background-color: rgba(0, 0, 0, 0.5); /* Dark overlay for better readability */
-        border-radius: 10px; /* Optional: to round corners */
-        padding: 20px; /* Optional: add some padding */
-    }}
-    </style>
-"""
-
-# Use the CSS for the tabs you want to apply the background
-tabs = st.tabs(["Introduction", "Count Analysis", "Key Statistics", "Feature Analysis", "Multivariate Analysis", "Conclusion"])
-
-for tab in tabs:
-    with tab:
-        st.markdown(background_style.format(image_url=image_url), unsafe_allow_html=True)
-        st.markdown("<div class='tab-content'>", unsafe_allow_html=True)
-        st.write(f"This is the content for the {tab} tab.")
 
 # Load the dataset
 @st.cache_data
@@ -429,4 +389,4 @@ with main_col:
             - **CPU Model** (**0.473860**) and **CPU Frequency** (**0.428847**): Both show a moderate correlation with price, indicating that processor specifications are important, but not as crucial as RAM or screen specs in this dataset.
             - **Screen** (**0.403834**): This general screen factor (possibly referring to overall screen size or quality) shows the weakest correlation among the listed factors, but still has a moderate positive influence on price.
             """)
-
+            
