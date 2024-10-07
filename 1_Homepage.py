@@ -11,7 +11,25 @@ warnings.filterwarnings("ignore")
 # Set page configuration for a wide layout
 st.set_page_config(page_title='Laptop Prices Data Exploration', layout='wide')
 
+# Load the image (update with the correct path if necessary)
+image_path = '1.jpg'  # Make sure this file is in the same directory as your script
 
+# Add CSS to set the background image
+st.markdown(
+    f"""
+    <style>
+    .stApp {{
+        background-image: url("data:image/jpeg;base64,{image_path}");
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+        background-position: center;
+        height: 100vh;
+    }}
+    </style>
+    """,
+    unsafe_allow_html=True
+)
 
 # Load the dataset
 @st.cache_data
