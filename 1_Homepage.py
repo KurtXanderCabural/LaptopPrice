@@ -29,9 +29,6 @@ img_byte_arr = io.BytesIO()
 image.save(img_byte_arr, format='JPEG')
 img_byte_arr = img_byte_arr.getvalue()
 
-# Use the image_url for base64 if needed
-img_base64 = f'"{image_url}",{img_byte_arr.hex()}'
-
 # Set the CSS for the background
 st.markdown(
     f"""
@@ -41,8 +38,28 @@ st.markdown(
         background-size: cover;
         background-repeat: no-repeat;
         height: 100vh;
+        position: relative;
+    }}
+
+    .overlay {{
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: rgba(255, 255, 255, 0.7);  /* White with transparency */
+        z-index: 1;
+    }}
+
+    .content {{
+        position: relative;
+        z-index: 2;  /* Place content above the overlay */
+        color: #333;  /* Dark color for better readability */
+        padding: 20px;
     }}
     </style>
+    <div class="overlay"></div>
+    <div class="content">
     """, unsafe_allow_html=True
 )
 
