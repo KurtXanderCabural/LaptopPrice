@@ -147,7 +147,7 @@ with main_col:
                 option = st.selectbox('', ('CPU Models', 'GPU Models'), label_visibility="collapsed")
 
                 # Set up the figure for the top models
-                fig2, ax2 = plt.subplots(figsize=(6, 3))  # Consistent size for all plots
+                fig2, ax2 = plt.subplots(figsize=(6, 3.15))  # Consistent size for all plots
 
                 if option == 'CPU Models':
                     # Plot CPU distribution
@@ -157,7 +157,7 @@ with main_col:
 
                 else:
                     # Plot GPU distribution
-                    sns.countplot(data=df, y='GPU_model', palette='Spectral', order=df['GPU_model'].value_counts().head(15).index, ax=ax2)
+                    sns.countplot(data=df, y='GPU_model', palette='viridis', order=df['GPU_model'].value_counts().head(15).index, ax=ax2)
                     ax2.set_ylabel('GPU Model', fontsize=font_size)
                     ax2.set_xlabel('Count', fontsize=font_size)
 
@@ -167,6 +167,23 @@ with main_col:
 
                 # Show the plot in Streamlit
                 st.pyplot(fig2)
+
+        with st.expander("Interpretation", expanded=True):
+            st.markdown("""
+            The count of features in the dataset reveals the distribution and prevalence of different laptop specifications. 
+            For **manufacturers**, a few companies dominate the market, indicating their **popularity** and **brand recognition** among consumers. 
+            The types of laptops show a strong preference for categories like **Gaming** and **Ultrabooks**, which reflects current consumer trends and needs.
+            
+            **Screen sizes** predominantly cluster around common dimensions, particularly around **15.6 inches**, suggesting that this size is favored for its balance between usability and portability. 
+            **RAM configurations** display considerable diversity, with a significant number of laptops featuring around **8 GB**, catering to both basic and advanced users.
+            
+            **Operating systems** show varied preferences, indicating that consumers are open to different platforms. The presence of **touchscreen options** is notable, reflecting a growing trend towards versatility in laptop design. 
+            Advanced features such as **IPS panels** and **Retina displays** are increasingly common, indicating a demand for **high-quality visual experiences**.
+            
+            The data on **primary storage types** shows a shift towards **SSDs**, highlighting consumer preference for **speed** and **efficiency** over traditional **HDDs**. 
+            Lastly, the distribution of **CPU and GPU manufacturers** indicates a competitive landscape, with a few key players dominating the market. 
+            Overall, the counts of various features illustrate the current landscape of the laptop market, revealing consumer preferences and trends that can inform future product development and marketing strategies.
+            """)
 
 
     # Key Statistics Tab
@@ -194,7 +211,7 @@ with main_col:
         col1, col2 = st.columns(2)
         with col2:
             # RAM Distribution
-                tabs = st.tabs(["RAM Distribution", "Screen Size Distribution", "Weight Distribution", "Storage Distribution", "CPU Frequency Distribution"])
+                tabs = st.tabs(["RAM", "Screen Size", "Weight", "Storage", "CPU Frequency"])
 
                 # RAM Distribution Tab
                 with tabs[0]:
