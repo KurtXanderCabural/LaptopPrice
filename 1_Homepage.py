@@ -90,7 +90,7 @@ with main_col:
         if st.button("Multivarient Analysis", key="tab_Multivarient_analysis"):
             selected_tab = "Multivarient Analysis"
 
-     with tab6:
+    with tab6:
         if st.button("Comparison", key="tab_comparison"):
             selected_tab = "Comparison"
 
