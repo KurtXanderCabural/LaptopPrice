@@ -11,13 +11,11 @@ warnings.filterwarnings("ignore")
 # Set page configuration for a wide layout
 st.set_page_config(page_title='Laptop Prices Data Exploration', layout='wide')
 
-# Create a file uploader for the JPEG image
-uploaded_file = st.file_uploader("C:\Users\ASUS\OneDrive - Cebu Institute of Technology University\Desktop\1.jpg", type=["jpeg", "jpg"])
+image_path = r"C:\Users\ASUS\OneDrive - Cebu Institute of Technology University\Desktop\1.jpg"
+image = Image.open(image_path)
 
-# Check if a file has been uploaded
-if uploaded_file is not None:
-    # Read the uploaded image
-    image = Image.open(uploaded_file)
+# Display the image in Streamlit
+st.image(image, caption='Uploaded Image', use_column_width=True)
     
     # Convert the image to bytes and then to a base64 string
     img_byte_arr = io.BytesIO()
